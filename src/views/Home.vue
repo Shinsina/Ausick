@@ -11,6 +11,7 @@ import { Options, Vue } from 'vue-class-component'
 import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
 import axios from 'axios'
 const DataBaseConnection = 'http://localhost:3000/graphql'
+const options = { headers: { 'Content-Type': 'application/json' } }
 @Options({
   components: {
     HelloWorld
@@ -18,7 +19,7 @@ const DataBaseConnection = 'http://localhost:3000/graphql'
   methods: {
     async getRequest () {
       try {
-        const res = await axios.post(DataBaseConnection, { query: '{ authors{ id name } }' })
+        const res = await axios.post(DataBaseConnection, { query: '{ albums{ id } }' }, options)
         console.log(res.data.data)
       } catch (e) {
         console.log('err', e)
