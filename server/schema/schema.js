@@ -2,6 +2,7 @@ const graphql = require('graphql');
 const Book = require('../models/book');
 const Author = require('../models/Author');
 const Album = require('../models/album')
+const Song = require('../models/song')
 
 
 const {
@@ -70,10 +71,60 @@ const AlbumType = new GraphQLObjectType({
     country: { type: GraphQLString },
     currency: { type: GraphQLString },
     releaseDate: { type: GraphQLString },
-    primaryGenreName: { type: GraphQLString }
+    primaryGenreName: { type: GraphQLString },
+    songs:{
+      type: new GraphQLList(SongType),
+      resolve(parent,args){
+          return Song.find({ collectionId: parent.collectionId });
+      }
+  }
   })
 })
 
+const SongType = new GraphQLObjectType ({
+  name: 'Song',
+  fields: () => ({
+    id: { type: GraphQLID },
+    wrapperType: { type: GraphQLString },
+    kind: { type: GraphQLString },
+    artistId: { type: GraphQLInt },
+    collectionId: { type: GraphQLInt },
+    trackId: { type: GraphQLInt },
+    artistName: { type: GraphQLString },
+    collectionName: { type: GraphQLString },
+    trackName: { type: GraphQLString },
+    collectionCensoredName: { type: GraphQLString },
+    trackCensoredName: { type: GraphQLString },
+    artistViewUrl: { type: GraphQLString },
+    collectionViewUrl: { type: GraphQLString },
+    trackViewUrl: { type: GraphQLString },
+    previewUrl: { type: GraphQLString },
+    artworkUrl30: { type: GraphQLString },
+    artworkUrl60: { type: GraphQLString },
+    artworkUrl100: { type: GraphQLString },
+    collectionPrice: { type: GraphQLFloat },
+    trackPrice: { type: GraphQLFloat },
+    releaseDate: { type: GraphQLString },
+    collectionExplicitness: { type: GraphQLString },
+    trackExplicitness: { type: GraphQLString },
+    discCount: { type: GraphQLInt },
+    discNumber: { type: GraphQLInt },
+    trackCount: { type: GraphQLInt },
+    trackNumber: { type: GraphQLInt },
+    trackTimeMillis: {type: GraphQLInt },
+    country: { type: GraphQLString },
+    currency: { type: GraphQLString },
+    primaryGenreName: { type: GraphQLString },
+    isStreamable: { type: graphql.GraphQLBoolean },
+    album:{
+      type: AlbumType,
+      resolve(parent,args){
+          //return Book.find({ authorID: parent.id });
+          return Album.findOne({ collectionId: parent.collectionId })
+      }
+  }
+  })
+})
 //RootQuery describe how users can use the graph and grab data.
 //E.g Root query to get all authors, get all books, get a particular
 //book or get a particular author.
@@ -91,6 +142,19 @@ const RootQuery = new GraphQLObjectType({
           type: new GraphQLList(AlbumType),
           resolve(parent, args) {
             return Album.find({})
+          }
+        },
+        song: {
+          type: SongType,
+          args: { id: { type: GraphQLID }},
+          resolve(parent, args) {
+            return Song.findById(args.id);
+          }
+        },
+        songs: {
+          type: new GraphQLList(SongType),
+          resolve(parent, args){
+            return Song.find({})
           }
         },
         book: {
@@ -180,6 +244,78 @@ const Mutation = new GraphQLObjectType({
               primaryGenreName: args.primaryGenreName
             });
             return album.save();
+          }
+        },
+        addSong: {
+          type: SongType,
+          args: {
+              wrapperType: { type: GraphQLString },
+              kind: { type: GraphQLString },
+              artistId: { type: GraphQLInt },
+              collectionId: { type: GraphQLInt },
+              trackId: { type: GraphQLInt },
+              artistName: { type: GraphQLString },
+              collectionName: { type: GraphQLString },
+              trackName: { type: GraphQLString },
+              collectionCensoredName: { type: GraphQLString },
+              trackCensoredName: { type: GraphQLString },
+              artistViewUrl: { type: GraphQLString },
+              collectionViewUrl: { type: GraphQLString },
+              trackViewUrl: { type: GraphQLString },
+              previewUrl: { type: GraphQLString },
+              artworkUrl30: { type: GraphQLString },
+              artworkUrl60: { type: GraphQLString },
+              artworkUrl100: { type: GraphQLString },
+              collectionPrice: { type: GraphQLFloat },
+              trackPrice: { type: GraphQLFloat },
+              releaseDate: { type: GraphQLString },
+              collectionExplicitness: { type: GraphQLString },
+              trackExplicitness: { type: GraphQLString },
+              discCount: { type: GraphQLInt },
+              discNumber: { type: GraphQLInt },
+              trackCount: { type: GraphQLInt },
+              trackNumber: { type: GraphQLInt },
+              trackTimeMillis: {type: GraphQLInt },
+              country: { type: GraphQLString },
+              currency: { type: GraphQLString },
+              primaryGenreName: { type: GraphQLString },
+              isStreamable: { type: graphql.GraphQLBoolean },
+          },
+          resolve(parent, args) {
+            let song = new Song({
+              wrapperType: args.wrapperType,
+              kind: args.kind,
+              artistId: args.artistId,
+              collectionId: args.collectionId,
+              trackId: args.trackId,
+              artistName: args.artistName,
+              collectionName: args.collectionName,
+              trackName: args.trackName,
+              collectionCensoredName: args.collectionCensoredName,
+              trackCensoredName: args.trackCensoredName,
+              artistViewUrl: args.artistViewUrl,
+              collectionViewUrl: args.collectionViewUrl,
+              trackViewUrl: args.trackViewUrl,
+              previewUrl: args.previewUrl,
+              artworkUrl30: args.artworkUrl30,
+              artworkUrl60: args.artworkUrl60,
+              artworkUrl100: args.artworkUrl100,
+              collectionPrice: args.collectionPrice,
+              trackPrice: args.trackPrice,
+              releaseDate: args.releaseDate,
+              collectionExplicitness: args.collectionExplicitness,
+              trackExplicitness: args.trackExplicitness,
+              discCount: args.discCount,
+              discNumber: args.discNumber,
+              trackCount: args.trackCount,
+              trackNumber: args.trackNumber,
+              trackTimeMillis: args.trackTimeMillis,
+              country: args.country,
+              currency: args.currency,
+              primaryGenreName: args.primaryGenreName,
+              isStreamable: args.isStreamable,
+            });
+            return song.save();
           }
         },
         addAuthor: {

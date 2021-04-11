@@ -3,7 +3,6 @@ const { graphqlHTTP } = require('express-graphql');
 const schema = require('./schema/schema')
 const cors = require('cors')
 const db = require('./database')
-const bodyParser = require('body-parser')
 
 const mongoose = require('mongoose');
 
@@ -17,7 +16,6 @@ const app = express();
 
 app.use(cors())
 
-app.use(bodyParser.json())
 //This route will be used as an endpoint to interact with Graphql,
 //All queries will go through this route.
 app.use('/graphql', graphqlHTTP({
