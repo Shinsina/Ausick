@@ -2,7 +2,7 @@ const axios = require('axios')
 const fs = require('fs')
 
 const DataBaseConnection = 'http://localhost:3000/graphql'
-const cleanData = fs.readFileSync('./Artists.json', { encoding: 'utf-8'})
+const cleanData = fs.readFileSync('The Amity Affliction API Data (Songs) CLEAN.json', { encoding: 'utf-8'})
 let music = JSON.parse(cleanData)
 /*album uploader function
 async function putRequest(album) {
@@ -16,7 +16,7 @@ music.results.forEach(album => {
   putRequest(album)
 })*/
 
-/*Song Uploader Function
+//Song Uploader Function
 async function pushRequest(song) {
   try {
   const res = await axios.post(DataBaseConnection, { query: `mutation { addSong(wrapperType: "${song.wrapperType}" kind: "${song.kind}" artistId: ${song.artistId} collectionId: ${song.collectionId} trackId: ${song.trackId} artistName: "${song.artistName}" collectionName: "${song.collectionName}" trackName: "${song.trackName}" collectionCensoredName: "${song.collectionCensoredName}" trackCensoredName: "${song.trackCensoredName}" artistViewUrl: "${song.artistViewUrl}" collectionViewUrl: "${song.collectionViewUrl}" trackViewUrl: "${song.trackViewUrl}" previewUrl: "${song.previewUrl}" artworkUrl30: "${song.artworkUrl30}" artworkUrl60: "${song.artworkUrl60}" artworkUrl100: "${song.artworkUrl100}"  collectionPrice: ${song.collectionPrice} trackPrice: ${song.trackPrice} releaseDate: "${song.releaseDate}" collectionExplicitness: "${song.collectionExplicitness}" trackExplicitness: "${song.trackExplicitness}" discCount: ${song.discCount} discNumber: ${song.discNumber} trackCount: ${song.trackCount} trackNumber: ${song.trackNumber} trackTimeMillis: ${song.trackTimeMillis} country: "${song.country}" currency: "${song.currency}" primaryGenreName: "${song.primaryGenreName}" isStreamable: ${song.isStreamable}){wrapperType kind artistId collectionId trackId artistName collectionName trackName collectionCensoredName trackCensoredName artistViewUrl collectionViewUrl trackViewUrl previewUrl artworkUrl30 artworkUrl60 artworkUrl100 collectionPrice trackPrice releaseDate collectionExplicitness trackExplicitness discCount discNumber trackCount trackNumber trackTimeMillis country currency primaryGenreName isStreamable} }` })
@@ -26,10 +26,10 @@ async function pushRequest(song) {
 }
 music.results.forEach(song => {
   pushRequest(song)
-})*/
+})
 
 //Artist Uploader Function
-async function placeRequest(artist) {
+/*async function placeRequest(artist) {
   try {
     //console.log(artist.artistId)
   const res = await axios.post(DataBaseConnection, { query: `mutation { addArtist(artistId: ${artist.artistId} artistName: "${artist.artistName}" bio: "${artist.bio}" photo: "${artist.photo}" founded: ${artist.founded} hometown: "${artist.hometown}" members: "${artist.members}"){artistName bio photo hometown members} }` })
@@ -41,4 +41,4 @@ console.log(res.data.errors)
 music.results.forEach(artist => {
   placeRequest(artist)
   //console.log(artist)
-})
+})*/
