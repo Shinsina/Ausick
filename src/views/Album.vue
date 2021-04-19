@@ -3,9 +3,14 @@
   <div class="flex justify-center" v-on:click.prevent="goToAlbumPage(album.id)">
     <img :src="album.artworkUrl100" />
   </div>
-  <p>{{album.collectionName}}</p>
+  <p>{{album.collectionName}} ${{album.collectionPrice}}</p>
+  <p>{{ album.releaseDate }}</p>
   <div class="flex justify-center" v-for="song in sortSongs(album.songs)" :key="song.id">
-    {{song.trackNumber}}. {{song.trackName}}
+    {{song.trackNumber}}. {{song.trackName}}  {{trackLength(song.trackTimeMillis) }} ${{song.trackPrice}}
+  </div>
+  {{ album.copyright }}
+  <div>
+  <button v-on:click.prevent="purchase()">Buy</button>
   </div>
 </div>
 </template>
@@ -26,6 +31,7 @@ const options = { headers: { 'Content-Type': 'application/json' } }
   },
   created () {
     this.getRequest(this.$router.currentRoute.value.params.albumId)
+    console.log(this.$router)
   },
   methods: {
     async getRequest (id: string) {
@@ -39,8 +45,16 @@ const options = { headers: { 'Content-Type': 'application/json' } }
         console.log('err', e)
       }
     },
+    trackLength (trackLength: number) {
+      const minutes = Math.floor(trackLength / 60000)
+      const seconds = Number(((trackLength % 60000) / 1000).toFixed(0))
+      return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
+    },
     sortSongs (songs: Array<Record<string, unknown>>) {
       return _.orderBy(songs, 'trackNumber', 'asc')
+    },
+    purchase () {
+      alert('Thank you for your purchase!')
     }
   }
 })

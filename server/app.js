@@ -6,7 +6,7 @@ const db = require('./database')
 
 const mongoose = require('mongoose');
 
-mongoose.connect(db)
+mongoose.connect(db, { useFindAndModify: false })
 
 mongoose.connection.once('open', () => {
     console.log('connected to database');

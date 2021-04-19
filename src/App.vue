@@ -2,7 +2,8 @@
 <div class="py-10">
   <router-view/>
   <div class="text-center pt-10">
-    <router-link to="/">Home</router-link>
+    <router-link to="/"> Home </router-link>
+    <a v-on:click="this.$router.back"> Back </a>
   </div>
   </div>
 </template>
