@@ -10,7 +10,7 @@
   </div>
   {{ album.copyright }}
   <div>
-  <button v-on:click.prevent="purchase()">Buy</button>
+    <button v-on:click.prevent="purchase()">Buy</button>
   </div>
 </div>
 </template>

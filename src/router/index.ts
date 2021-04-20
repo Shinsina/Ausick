@@ -19,6 +19,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/album/:albumId',
     name: 'Album',
     component: () => import(/* webpackChunkName: "album" */ '../views/Album.vue')
+  },
+  {
+    path: '/upload/:type',
+    name: 'Upload',
+    component: () => import(/* webpackChunkName: "upload" */ '../views/UploadForm.vue')
   }
 ]
 
