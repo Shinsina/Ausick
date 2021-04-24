@@ -142,7 +142,7 @@ const SongType = new GraphQLObjectType ({
     country: { type: GraphQLString },
     currency: { type: GraphQLString },
     primaryGenreName: { type: GraphQLString },
-    isStreamable: { type: graphql.GraphQLBoolean },
+    isStreamable: { type: GraphQLBoolean },
     album:{
       type: AlbumType,
       resolve(parent,args){
@@ -416,7 +416,7 @@ const Mutation = new GraphQLObjectType({
               country: { type: GraphQLString },
               currency: { type: GraphQLString },
               primaryGenreName: { type: GraphQLString },
-              isStreamable: { type: graphql.GraphQLBoolean },
+              isStreamable: { type: GraphQLBoolean },
           },
           resolve(parent, args) {
             let song = new Song({
@@ -493,6 +493,15 @@ const Mutation = new GraphQLObjectType({
           },
           resolve(parent,args){
             return Song.deleteMany({artistId: args.artistId})
+          }
+        },
+        deleteSongsOnAlbum: {
+          type: SongType,
+          args: {
+            collectionId: { type: GraphQLInt }
+          },
+          resolve(parent,args) {
+            return Song.deleteMany({collectionId: args.collectionId})
           }
         },
         addAuthor: {
