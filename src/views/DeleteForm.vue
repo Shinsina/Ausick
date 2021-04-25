@@ -90,6 +90,7 @@ const options = { headers: { 'Content-Type': 'application/json' } }
         this.deleteAlbumSongs(album)
       })
       this.deleteArtistAlbums(artist)
+      this.deleteArtistSongs(artist)
       try {
         const queryString = 'deleteArtist(id:"' + artist.id + '"){id}'
         const res = await axios.post(DataBaseConnection, { query: 'mutation {' + queryString + '}' }, options)
@@ -102,6 +103,15 @@ const options = { headers: { 'Content-Type': 'application/json' } }
     async deleteArtistAlbums (artist: Record <string, unknown>) {
       try {
         const queryString = 'deleteAlbums(artistId:' + artist.artistId + '){artistId}'
+        const res = await axios.post(DataBaseConnection, { query: 'mutation {' + queryString + '}' }, options)
+        console.log(res)
+      } catch (e) {
+        console.log('err', e)
+      }
+    },
+    async deleteArtistSongs (artist: Record <string, unknown>) {
+      try {
+        const queryString = 'deleteSongs(artistId: ' + artist.artistId + '){artistId}'
         const res = await axios.post(DataBaseConnection, { query: 'mutation {' + queryString + '}' }, options)
         console.log(res)
       } catch (e) {

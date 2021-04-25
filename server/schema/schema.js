@@ -142,7 +142,7 @@ const SongType = new GraphQLObjectType ({
     country: { type: GraphQLString },
     currency: { type: GraphQLString },
     primaryGenreName: { type: GraphQLString },
-    isStreamable: { type: GraphQLBoolean },
+    isStreamable: { type: graphql.GraphQLBoolean },
     album:{
       type: AlbumType,
       resolve(parent,args){
@@ -416,7 +416,7 @@ const Mutation = new GraphQLObjectType({
               country: { type: GraphQLString },
               currency: { type: GraphQLString },
               primaryGenreName: { type: GraphQLString },
-              isStreamable: { type: GraphQLBoolean },
+              isStreamable: { type: graphql.GraphQLBoolean },
           },
           resolve(parent, args) {
             let song = new Song({
