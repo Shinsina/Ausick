@@ -1,25 +1,14 @@
 <template>
-<div class="py-10">
-  <router-view/>
-  <div class="text-center pt-10">
+<div class="bg-black h-screen text-white">
+  <div class="text-center bg-indigo-800 border-white border-2">
+    <p class="block lg:text-7xl md:text-4xl sm-text-3xl break-words text-center">Ausick</p>
+    <p class="block lg:text-4xl md:text-xl sm:text-lg break-words text-center">Celebrating the "sick" stuff from down under</p>
+    <div class="block lg:text-3xl md:text-lg sm:text-md break-words text-center">
     <router-link to="/"> Home </router-link>
     <router-link to="/login">Login</router-link>
     <a v-on:click="this.$router.back"> Back </a>
+    </div>
   </div>
+  <router-view class="bg-black"/>
   </div>
 </template>
-
-<style>
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>

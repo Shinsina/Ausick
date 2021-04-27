@@ -1,13 +1,13 @@
 <template>
   <div class="artist">
-    <div v-if="artist" class="w-full flex">
-     <div class="flex-col w-1/4 text-center">
+    <div v-if="artist" class="w-full flex border-white border-2 border-t-0 pt-5">
+     <div class="flex-col w-1/4 text-center  text-xl">
         <p>{{ artist.artistName }}</p>
         <div class="flex justify-center">
         <img :src="artist.photo" width="380" height="380"/>
         </div>
         <p>Founded {{ artist.founded }} in {{ artist.hometown }}</p>
-         <p>{{ artist.bio }}</p>
+         <p class="text-base pt-5">{{ artist.bio }}</p>
       </div>
       <div class="flex flex-wrap w-full">
         <div v-for="album in sortAlbums(artist.albums)" :key="album.id" class="w-1/4 text-center">

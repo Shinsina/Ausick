@@ -1,9 +1,8 @@
 <template>
-  <div class="home">
-    <div class="flex justify-start pl-10">
+    <div class="flex">
     <div v-for="artist in artistArray" :key="artist.id" class="flex-col w-1/4 text-center">
-      <div class="flex">
-      <div v-on:click.prevent="goToArtistPage(artist.id)">
+      <div class="flex-auto border-white border-2 border-t-0">
+      <div v-on:click.prevent="goToArtistPage(artist.id)" class="block lg:text-xl md:text-xs sm:text-xs break-words text-center">
         {{ artist.artistName }}
         <div class="flex justify-center">
         <img :src="artist.photo" width="380" height="380"/>
@@ -13,7 +12,6 @@
       </div>
     </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
