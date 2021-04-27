@@ -29,6 +29,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/delete',
     name: 'Delete',
     component: () => import(/* webpackChunkName: "delete" */ '../views/DeleteForm.vue')
+  },
+  {
+    path: '/update/:type',
+    name: 'Update',
+    component: () => import(/* webpackChunkName: "update" */ '../views/UpdateForm.vue')
   }
 ]
 

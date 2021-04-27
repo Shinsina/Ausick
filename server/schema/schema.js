@@ -351,7 +351,7 @@ const Mutation = new GraphQLObjectType({
           },
           resolve(parent,args){
             return new Promise((resolve, reject) => {
-              Artist.findOneAndUpdate(
+              Album.findOneAndUpdate(
                 {"_id": args.id},
                 {"$set":{collectionPrice: args.collectionPrice}},
                 {"new": true} //return new document
@@ -454,28 +454,28 @@ const Mutation = new GraphQLObjectType({
             });
             return song.save();
           },
-          updateSong: {
-            type: SongType,
-          args: {
-            id: { type: GraphQLID },
-            trackPrice: { type: new GraphQLNonNull(GraphQLFloat) },
-          },
-          resolve(parent,args){
-            return new Promise((resolve, reject) => {
-              Artist.findOneAndUpdate(
-                {"_id": args.id},
-                {"$set":{trackPrice: args.trackPrice}},
-                {"new": true} //return new document
-                ).exec((err,res)=> {
-                  if(err) {
-                    console.log(err)
-                  } else {
-                    resolve(res)
-                  }
-                })
-            })
-          }
-          }
+        },
+        updateSong: {
+          type: SongType,
+        args: {
+          id: { type: GraphQLID },
+          trackPrice: { type: new GraphQLNonNull(GraphQLFloat) },
+        },
+        resolve(parent,args){
+          return new Promise((resolve, reject) => {
+            Song.findOneAndUpdate(
+              {"_id": args.id},
+              {"$set":{trackPrice: args.trackPrice}},
+              {"new": true} //return new document
+              ).exec((err,res)=> {
+                if(err) {
+                  console.log(err)
+                } else {
+                  resolve(res)
+                }
+              })
+          })
+        }
         },
         deleteSong: {
           type: SongType,
