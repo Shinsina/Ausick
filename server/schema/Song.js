@@ -6,8 +6,8 @@ import {
   GraphQLBoolean,
   GraphQLObjectType,
   GraphQLList
-} from 'graphql'
-import fetch from 'node-fetch'
+} from 'graphql';
+import fetch from 'node-fetch';
 
 const SongType = new GraphQLObjectType({
   name: 'Song',
@@ -44,7 +44,7 @@ const SongType = new GraphQLObjectType({
     primaryGenreName: { type: GraphQLString },
     isStreamable: { type: GraphQLBoolean }
   })
-})
+});
 
 const OverallSongDefinitionType = new GraphQLObjectType({
   name: 'OverallDefinition',
@@ -52,12 +52,12 @@ const OverallSongDefinitionType = new GraphQLObjectType({
     results: { type: new GraphQLList(SongType) },
     resultCount: { type: GraphQLInt }
   })
-})
+});
 
 export default {
   type: OverallSongDefinitionType,
   args: { url: { type: GraphQLString } },
-  resolve (_, args) {
-    return fetch(args.url).then((data) => data.json())
+  resolve(_, args) {
+    return fetch(args.url).then((data) => data.json());
   }
-}
+};
