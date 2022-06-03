@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import {
-  GraphQLInt,
-  GraphQLFloat,
-  GraphQLString,
-  GraphQLObjectType,
-  GraphQLList
-} from 'graphql'
-import fetch from 'node-fetch'
+import { GraphQLInt, GraphQLFloat, GraphQLString, GraphQLObjectType, GraphQLList } from 'graphql';
+import fetch from 'node-fetch';
 
 const AlbumType = new GraphQLObjectType({
   name: 'Album',
@@ -33,7 +27,7 @@ const AlbumType = new GraphQLObjectType({
     releaseDate: { type: GraphQLString },
     primaryGenreName: { type: GraphQLString }
   })
-})
+});
 
 const OverallAlbumDefinitionType = new GraphQLObjectType({
   name: 'OverallAlbumDefinition',
@@ -41,12 +35,12 @@ const OverallAlbumDefinitionType = new GraphQLObjectType({
     results: { type: new GraphQLList(AlbumType) },
     resultCount: { type: GraphQLInt }
   })
-})
+});
 
 export default {
   type: OverallAlbumDefinitionType,
   args: { url: { type: GraphQLString } },
-  resolve (_, args) {
-    return fetch(args.url).then((data) => data.json())
+  resolve(_, args) {
+    return fetch(args.url).then((data) => data.json());
   }
-}
+};
