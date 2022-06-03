@@ -10,8 +10,8 @@
          <p class="text-base pt-5">{{ artist.bio }}</p>
       </div>
       <div class="flex flex-wrap w-full">
-        <div v-for="album in sortAlbums(artist.albums)" :key="album.id" class="w-1/4 text-center">
-          <div class="flex justify-center" v-on:click.prevent="goToAlbumPage(album.id)">
+        <div v-for="album in sortAlbums(artist.albums)" :key="album.collectionId" class="w-1/4 text-center">
+          <div class="flex justify-center" v-on:click.prevent="goToAlbumPage(album.collectionId)">
           <img :src="album.artworkUrl100" />
           </div>
           <p>{{album.collectionName}}</p>
@@ -45,16 +45,23 @@ const options = { headers: { 'Content-Type': 'application/json' } }
   methods: {
     async getRequest (id: string) {
       try {
-        const queryString = 'artist(id:"' + id + '"){id,artistId,artistName,bio,photo,founded,hometown,albums {id,collectionId,collectionName,collectionCensoredName,artworkUrl100,collectionPrice,collectionExplicitness,trackCount,copyright,releaseDate,primaryGenreName, songs {id,trackId,trackName,trackCensoredName,trackPrice,trackExplicitness,discCount,discNumber,trackNumber,trackTimeMillis}}}'
+        const queryString = `artist(artistId: ${id}){artistId,artistName,bio,photo,founded,hometown} albums(url: "https://itunes.apple.com/lookup?id=${id}&entity=album") { results { collectionId,collectionName,collectionCensoredName,artworkUrl100,collectionPrice,collectionExplicitness,trackCount,copyright,releaseDate,primaryGenreName}} songs(url: "https://itunes.apple.com/lookup?id=${id}&entity=song&limit=500") { results{collectionId, trackId,trackName,trackCensoredName,trackPrice,trackExplicitness,discCount,discNumber,trackNumber,trackTimeMillis}}`
         const res = await axios.post(DataBaseConnection, { query: '{' + queryString + '}' }, options)
         this.artist = res.data.data.artist
-        console.log(this.artist)
+        this.artist.albums = res.data.data.albums.results.filter((result: Record<string, unknown>) => result.collectionId)
+        res.data.data.songs.results.filter((result: Record<string, unknown>) => result.collectionId).forEach((song: Record<string, unknown>) => {
+          const albumForSongIndex = Array.from(this.artist.albums.map((album: Record<string, unknown>) => album.collectionId)).indexOf(song.collectionId)
+          if (albumForSongIndex >= 0) {
+            if (this.artist.albums[albumForSongIndex].songs) this.artist.albums[albumForSongIndex].songs.push(song)
+            else this.artist.albums[albumForSongIndex].songs = [song]
+          }
+        })
       } catch (e) {
         console.log('err', e)
       }
     },
     goToAlbumPage (albumId: string) {
-      this.$router.push(`/album/${albumId}`)
+      this.$router.push(`${this.$route.params.artistId}/album/${albumId}`)
     },
     sortSongs (songs: Array<Record<string, unknown>>) {
       return _.orderBy(songs, 'trackNumber', 'asc')

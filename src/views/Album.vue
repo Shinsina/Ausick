@@ -30,17 +30,15 @@ const options = { headers: { 'Content-Type': 'application/json' } }
     }
   },
   created () {
-    this.getRequest(this.$router.currentRoute.value.params.albumId)
-    console.log(this.$router)
+    this.getRequest(this.$router.currentRoute.value.params.artistId, this.$router.currentRoute.value.params.albumId)
   },
   methods: {
-    async getRequest (id: string) {
+    async getRequest (artistId: string, albumId: string) {
       try {
-        console.log(id)
-        const queryString = 'album(id:"' + id + '"){id,artistName,collectionName,artworkUrl100,collectionPrice,copyright,releaseDate,collectionExplicitness,songs{id,trackName,trackPrice,trackNumber,trackTimeMillis}}'
+        const queryString = `albums(url: "https://itunes.apple.com/lookup?id=${artistId}&entity=album") { results { collectionId,collectionName,collectionCensoredName,artworkUrl100,collectionPrice,collectionExplicitness,trackCount,copyright,releaseDate,primaryGenreName}} songs(url: "https://itunes.apple.com/lookup?id=${artistId}&entity=song&limit=500") { results{collectionId, trackId,trackName,trackCensoredName,trackPrice,trackExplicitness,discCount,discNumber,trackNumber,trackTimeMillis}}`
         const res = await axios.post(DataBaseConnection, { query: '{' + queryString + '}' }, options)
-        this.album = res.data.data.album
-        console.log(this.album)
+        this.album = res.data.data.albums.results.filter((album: Record<string, unknown>) => album.collectionId === Number(albumId))[0]
+        this.album.songs = [...res.data.data.songs.results.filter((song: Record<string, unknown>) => song.collectionId === Number(albumId))]
       } catch (e) {
         console.log('err', e)
       }
