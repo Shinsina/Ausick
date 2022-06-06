@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
   import type { Album, Song } from '$lib/typeDefs';
+  import { albumsQuery } from '$lib/queries';
   /**
    * @type {import('@sveltejs/kit').Load}
    */
@@ -12,14 +13,13 @@
   }): Promise<Record<string, unknown>> {
     const { artistId } = params;
     const url = 'http://localhost:3000/graphql';
+    const query = albumsQuery(artistId);
     const res = await fetch(url, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify({
-        query: `{ artist(artistId: ${artistId}){artistId,artistName,bio,photo,founded,hometown} albums(url: "https://itunes.apple.com/lookup?id=${artistId}&entity=album") { results { collectionId,collectionName,collectionCensoredName,artworkUrl100,collectionPrice,collectionExplicitness,trackCount,copyright,releaseDate,primaryGenreName}} songs(url: "https://itunes.apple.com/lookup?id=${artistId}&entity=song&limit=500") { results{collectionId, trackId,trackName,trackCensoredName,trackPrice,trackExplicitness,discCount,discNumber,trackNumber,trackTimeMillis}} }`
-      })
+      body: JSON.stringify({ query })
     });
     if (res.ok) {
       const resolvedData = await res.json();
