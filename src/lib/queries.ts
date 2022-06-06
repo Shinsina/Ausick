@@ -1,3 +1,8 @@
+/**
+ *
+ * @param artistId The artistId for the artist whose albums to query for
+ * @returns The GraphQL query string for the query to perform
+ */
 export function albumsQuery(artistId: string) {
   return `{
     artist(artistId: ${artistId}){artistId,artistName,bio,photo,founded,hometown}
@@ -20,6 +25,11 @@ export function albumsQuery(artistId: string) {
   }`;
 }
 
+/**
+ *
+ * @param artistId The artistId for the artist whose album to query for
+ * @returns The GraphQL query string for the query to perform
+ */
 export function albumQuery(artistId: string) {
   return `{
     albums(url: "https://itunes.apple.com/lookup?id=${artistId}&entity=album") {

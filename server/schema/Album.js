@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { GraphQLInt, GraphQLFloat, GraphQLString, GraphQLObjectType, GraphQLList } from 'graphql';
 import fetch from 'node-fetch';
 

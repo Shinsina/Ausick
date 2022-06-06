@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { GraphQLInt, GraphQLString, GraphQLObjectType, GraphQLList } from 'graphql';
 import ArtistData from '../data/Artist.js';
 
