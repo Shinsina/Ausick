@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
   import type { Album, Song } from '$lib/typeDefs';
   import { albumsQuery } from '$lib/graphql/queries';
+  import { sortAlbums, sortSongs } from '$lib/sorts';
   /**
    * @type {import('@sveltejs/kit').Load}
    */
@@ -25,7 +26,7 @@
       const resolvedData = await res.json();
       if (resolvedData.data) {
         const { artist, albums, songs } = resolvedData.data;
-        artist.albums = albums.results.filter((album: Album) => album.collectionId);
+        artist.albums = sortAlbums(albums.results.filter((album: Album) => album.collectionId));
         songs.results
           .filter((result: Song) => result.collectionId)
           .forEach((song: Song) => {
@@ -38,6 +39,10 @@
               else artist.albums[albumForSongIndex].songs = [song];
             }
           });
+        artist.albums.forEach((album: Album, index: number) => {
+          const { songs } = album;
+          artist.albums[index].songs = sortSongs(songs);
+        });
         return {
           props: {
             artist
@@ -54,7 +59,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import type { Artist } from '$lib/typeDefs';
-  import { sortAlbums, sortSongs } from '$lib/sorts';
   export let artist: Artist;
 </script>
 
@@ -70,7 +74,7 @@
         <p class="text-base pt-5">{artist.bio}</p>
       </div>
       <div class="flex flex-wrap w-full">
-        {#each sortAlbums(artist.albums) as album}
+        {#each artist.albums as album}
           <div class="w-1/4 text-center">
             <div
               on:click|preventDefault={() =>
@@ -81,7 +85,7 @@
             </div>
             <p>{album.collectionName}</p>
             <p class="pb-5">{album.copyright}</p>
-            {#each sortSongs(album.songs) as song}
+            {#each album.songs as song}
               <div class="flex justify-center">
                 {song.trackNumber}. {song.trackName}
               </div>

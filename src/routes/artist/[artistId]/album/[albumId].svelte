@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
   import type { Album, Song } from '$lib/typeDefs';
   import { albumQuery } from '$lib/graphql/queries';
+  import { sortSongs } from '$lib/sorts';
   /**
    * @type {import('@sveltejs/kit').Load}
    */
@@ -27,9 +28,9 @@
         const { albums, songs } = resolvedData.data;
         const album =
           albums.results.find((album: Album) => album.collectionId === Number(albumId)) || {};
-        album.songs = [
+        album.songs = sortSongs([
           ...songs.results.filter((song: Song) => song.collectionId === Number(albumId))
-        ];
+        ]);
         return {
           props: {
             album
@@ -44,7 +45,6 @@
 </script>
 
 <script lang="ts">
-  import { sortSongs } from '$lib/sorts';
   export let album: Album;
 
   function trackLength(trackLength: number) {
