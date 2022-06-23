@@ -39,7 +39,7 @@ const OverallAlbumDefinitionType = new GraphQLObjectType({
 export default {
   type: OverallAlbumDefinitionType,
   args: { url: { type: GraphQLString } },
-  resolve(_, args) {
+  resolve(_: unknown, args: Record<string, string>) {
     return fetch(args.url).then((data) => data.json());
   }
 };

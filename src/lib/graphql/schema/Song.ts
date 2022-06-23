@@ -56,7 +56,7 @@ const OverallSongDefinitionType = new GraphQLObjectType({
 export default {
   type: OverallSongDefinitionType,
   args: { url: { type: GraphQLString } },
-  resolve(_, args) {
+  resolve(_: unknown, args: Record<string, string>) {
     return fetch(args.url).then((data) => data.json());
   }
 };

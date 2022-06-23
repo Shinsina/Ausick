@@ -1,5 +1,5 @@
 import { GraphQLInt, GraphQLString, GraphQLObjectType, GraphQLList } from 'graphql';
-import ArtistData from '../data/Artist.js';
+import ArtistData from '../../data/Artist.json';
 
 const ArtistType = new GraphQLObjectType({
   name: 'Artist',
@@ -17,7 +17,7 @@ const ArtistType = new GraphQLObjectType({
 export const artist = {
   type: ArtistType,
   args: { artistId: { type: GraphQLInt } },
-  resolve(_, args) {
+  resolve(_: unknown, args: Record<string, unknown>) {
     return ArtistData.find((artist) => artist.artistId === args.artistId);
   }
 };
