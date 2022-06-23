@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   import type { Album, Song } from '$lib/typeDefs';
-  import { albumsQuery } from '$lib/queries';
+  import { albumsQuery } from '$lib/graphql/queries';
   /**
    * @type {import('@sveltejs/kit').Load}
    */
@@ -12,14 +12,14 @@
     params: Record<string, string>;
   }): Promise<Record<string, unknown>> {
     const { artistId } = params;
-    const url = 'http://localhost:3000/graphql';
-    const query = albumsQuery(artistId);
+    const url = '/endpoints';
+    const source = albumsQuery(artistId);
     const res = await fetch(url, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify({ query })
+      body: JSON.stringify({ source })
     });
     if (res.ok) {
       const resolvedData = await res.json();

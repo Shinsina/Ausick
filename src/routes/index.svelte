@@ -3,15 +3,14 @@
    * @type {import('@sveltejs/kit').Load}
    */
   export async function load({ fetch }: { fetch: Function }): Promise<Record<string, unknown>> {
-    const url = 'http://localhost:3000/graphql';
+    const url = '/endpoints';
+    const source = '{ artists { artistId, artistName, photo, founded, hometown } }';
     const res = await fetch(url, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify({
-        query: '{ artists { artistId, artistName, photo, founded, hometown } }'
-      })
+      body: JSON.stringify({ source })
     });
     if (res.ok) {
       const resolvedData = await res.json();
