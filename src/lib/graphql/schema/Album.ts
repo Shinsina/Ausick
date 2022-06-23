@@ -1,5 +1,5 @@
 import { GraphQLInt, GraphQLFloat, GraphQLString, GraphQLObjectType, GraphQLList } from 'graphql';
-import fetch from 'node-fetch';
+import axios from 'axios';
 
 const AlbumType = new GraphQLObjectType({
   name: 'Album',
@@ -40,6 +40,6 @@ export default {
   type: OverallAlbumDefinitionType,
   args: { url: { type: GraphQLString } },
   resolve(_: unknown, args: Record<string, string>) {
-    return fetch(args.url).then((data) => data.json());
+    return axios(args.url).then((res) => res.data);
   }
 };
