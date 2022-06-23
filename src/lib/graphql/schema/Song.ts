@@ -6,7 +6,7 @@ import {
   GraphQLObjectType,
   GraphQLList
 } from 'graphql';
-import fetch from 'node-fetch';
+import axios from 'axios';
 
 const SongType = new GraphQLObjectType({
   name: 'Song',
@@ -57,6 +57,6 @@ export default {
   type: OverallSongDefinitionType,
   args: { url: { type: GraphQLString } },
   resolve(_: unknown, args: Record<string, string>) {
-    return fetch(args.url).then((data) => data.json());
+    return axios(args.url).then((data) => data.data);
   }
 };
