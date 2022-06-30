@@ -58,7 +58,7 @@
   {#if album}
     <div class="text-center h-screen pt-5">
       <div class="flex justify-center">
-        <img src={album.artworkUrl100} alt={album.collectionName} />
+        <img src={album.artworkUrl100} alt={album.collectionName} height="100" width="100" />
       </div>
       <p>{album.collectionName} ${album.collectionPrice}</p>
       <p>{album.releaseDate}</p>

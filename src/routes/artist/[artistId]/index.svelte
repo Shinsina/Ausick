@@ -81,7 +81,7 @@
                 goto(`/artist/${artist.artistId}/album/${album.collectionId}`)}
               class="flex justify-center"
             >
-              <img src={album.artworkUrl100} alt={album.collectionName} />
+              <img src={album.artworkUrl100} alt={album.collectionName} height="100" width="100" />
             </div>
             <p>{album.collectionName}</p>
             <p class="pb-5">{album.copyright}</p>
