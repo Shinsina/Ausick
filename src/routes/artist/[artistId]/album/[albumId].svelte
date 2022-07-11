@@ -45,33 +45,15 @@
 </script>
 
 <script lang="ts">
-  export let album: Album;
+  import AlbumInfo from '$lib/components/albumInfo.svelte';
 
-  function trackLength(trackLength: number) {
-    const minutes = Math.floor(trackLength / 60000);
-    const seconds = Number(((trackLength % 60000) / 1000).toFixed(0));
-    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-  }
+  export let album: Album;
 </script>
 
 <div>
   {#if album}
     <div class="text-center h-screen pt-5">
-      <div class="flex justify-center">
-        <img src={album.artworkUrl100} alt={album.collectionName} width="100" height="100" />
-      </div>
-      <p>{album.collectionName} ${album.collectionPrice}</p>
-      <p>{album.releaseDate}</p>
-      {#each sortSongs(album.songs) as song}
-        <div class="flex justify-center">
-          {song.trackNumber}. {song.trackName}
-          {trackLength(song.trackTimeMillis)} ${song.trackPrice}
-        </div>
-      {/each}
-      <div class="bg-black">
-        <p>{album.copyright}</p>
-        <button on:click|preventDefault={() => alert('Thank you for your purchase!')}>Buy</button>
-      </div>
+      <AlbumInfo {album} />
     </div>
   {/if}
 </div>
