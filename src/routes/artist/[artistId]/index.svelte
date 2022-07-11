@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import type { Album, Song } from '$lib/typeDefs';
+  import type { Artist, Album, Song } from '$lib/typeDefs';
   import { albumsQuery } from '$lib/graphql/queries';
   import { sortAlbums, sortSongs } from '$lib/sorts';
   /**
@@ -57,39 +57,26 @@
 </script>
 
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  import type { Artist } from '$lib/typeDefs';
+  import ArtistInfo from '$lib/components/artistInfo.svelte';
+  import AlbumInfo from '$lib/components/albumInfo.svelte';
+
   export let artist: Artist;
+
+  const showBio = true;
+
+  const navigateTo = (album: Album) => {
+    return `/artist/${artist.artistId}/album/${album.collectionId}`;
+  };
 </script>
 
 <div>
   {#if artist}
     <div class="w-full flex border-white border-2 border-t-0 pt-5">
-      <div class="flex-col w-1/4 text-center  text-xl">
-        <p>{artist.artistName}</p>
-        <div class="flex justify-center">
-          <img src={artist.photo} alt={artist.artistName} width="380" height="380" />
-        </div>
-        <p>Founded {artist.founded} in {artist.hometown}</p>
-        <p class="text-base pt-5">{artist.bio}</p>
-      </div>
+      <ArtistInfo {artist} {showBio} />
       <div class="flex flex-wrap w-full">
         {#each artist.albums as album}
           <div class="w-1/4 text-center">
-            <div
-              on:click|preventDefault={() =>
-                goto(`/artist/${artist.artistId}/album/${album.collectionId}`)}
-              class="flex justify-center"
-            >
-              <img src={album.artworkUrl100} alt={album.collectionName} width="100" height="100" />
-            </div>
-            <p>{album.collectionName}</p>
-            <p class="pb-5">{album.copyright}</p>
-            {#each album.songs as song}
-              <div class="flex justify-center">
-                {song.trackNumber}. {song.trackName}
-              </div>
-            {/each}
+            <AlbumInfo {album} {navigateTo} />
           </div>
         {/each}
       </div>
