@@ -1,7 +1,7 @@
 import { graphql } from 'graphql';
 import schema from '$lib/graphql/schema';
 
-export async function post(post: { request: Response }) {
+export async function POST(post: { request: Response }) {
   try {
     const requestBody = await post.request.json();
     const { source } = requestBody;
