@@ -13,6 +13,9 @@
     on:click|preventDefault={() => {
       if (!showBio) goto(`/artist/${artist.artistId}`);
     }}
+    on:keydown|preventDefault={() => {
+      if (!showBio) goto(`artist/${artist.artistId}`);
+    }}
     class={border}
   >
     <p>{artist.artistName}</p>
