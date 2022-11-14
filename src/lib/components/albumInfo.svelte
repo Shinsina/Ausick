@@ -16,6 +16,9 @@
   on:click|preventDefault={() => {
     if (navigateTo(album)) goto(navigateTo(album));
   }}
+  on:keydown|preventDefault={() => {
+    if (navigateTo(album)) goto(navigateTo(album));
+  }}
   class="flex justify-center"
 >
   <img src={album.artworkUrl100} alt={album.collectionName} width="100" height="100" />
