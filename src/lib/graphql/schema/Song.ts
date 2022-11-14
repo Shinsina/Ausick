@@ -46,7 +46,7 @@ const SongType = new GraphQLObjectType({
 });
 
 const OverallSongDefinitionType = new GraphQLObjectType({
-  name: 'OverallDefinition',
+  name: 'OverallSongDefinition',
   fields: () => ({
     results: { type: new GraphQLList(SongType) },
     resultCount: { type: GraphQLInt }
