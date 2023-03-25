@@ -1,6 +1,9 @@
 ---
   import DefaultLayout from 'src/layouts/defaultLayout.astro';
   import AlbumInfo from '$lib/components/albumInfo.svelte';
+  import type { Album, Song } from '$lib/typeDefs';
+  import { sortSongs } from '$lib/sorts';
+
   export function getStaticPaths() {
     return [
       { params: { artistId: 425209960, albumId: 1655611273 } },
@@ -70,12 +73,20 @@
       { params: { artistId: 449513466, albumId: 1359868689 } },
     ]
   };
-  const albumResponse = await fetch(`${Astro.url.href}/album-data.json`);
-  const [album] = await albumResponse.json();
+  const { artistId, albumId } = Astro.params;
+  const albumResponse = await fetch(`https://itunes.apple.com/lookup?id=${artistId}&entity=album`);
+  const albums = await albumResponse.json();
+  const songResponse = await fetch(`https://itunes.apple.com/lookup?id=${artistId}&entity=song&limit=500`);
+  const songs = await songResponse.json();
+  const album =
+    albums.results.find((album: Album) => album.collectionId === Number(albumId)) || {};
+  album.songs = sortSongs([
+    ...songs.results.filter((song: Song) => song.collectionId === Number(albumId))
+  ]);
 ---
 
 <DefaultLayout title="Ausick">
   <div class="text-center h-screen pt-5">
-    <AlbumInfo {album} />
+    <AlbumInfo {album} client:visible />
   </div>
 </DefaultLayout>
