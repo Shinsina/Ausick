@@ -4,7 +4,7 @@
   export let artist: Artist,
     showBio: Boolean = false;
 
-  const goTo = `/artist/${artist.artistId}`
+  const goTo = `/Ausick/artist/${artist.artistId}`
   const border = showBio ? '' : 'border-white border-2 border-t-0';
 </script>
 

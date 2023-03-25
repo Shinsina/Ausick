@@ -5,7 +5,7 @@
   export let artist: Artist;
 
   const navigateTo = (album: Album) => {
-    return `/artist/${artist.artistId}/album/${album.collectionId}`;
+    return `/Ausick/artist/${artist.artistId}/album/${album.collectionId}`;
   };
 </script>
 
