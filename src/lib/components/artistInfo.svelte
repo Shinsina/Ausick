@@ -9,7 +9,7 @@
 </script>
 
 <div class="flex-col w-1/4 text-center lg:text-xl sm:text-xs">
-  <a href={goTo}>
+  <a href={goTo} rel="prefetch">
     <div class={border}>
       <p>{artist.artistName}</p>
       <div class="flex justify-center">
