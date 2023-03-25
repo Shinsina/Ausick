@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import type { Album } from '$lib/typeDefs';
 
   export let album: Album,
@@ -12,17 +11,11 @@
   }
 </script>
 
-<div
-  on:click|preventDefault={() => {
-    if (navigateTo(album)) goto(navigateTo(album));
-  }}
-  on:keydown|preventDefault={() => {
-    if (navigateTo(album)) goto(navigateTo(album));
-  }}
-  class="flex justify-center"
->
-  <img src={album.artworkUrl100} alt={album.collectionName} width="100" height="100" />
-</div>
+<a href={navigateTo(album)} rel="prefetch">
+  <div class="flex justify-center">
+    <img src={album.artworkUrl100} alt={album.collectionName} width="100" height="100" />
+  </div>
+</a>
 <p>
   {album.collectionName}
   {#if album.collectionPrice}${album.collectionPrice}{/if}

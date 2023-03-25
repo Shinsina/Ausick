@@ -12,7 +12,7 @@ export type Album = {
   collectionId: number;
   collectionName: string;
   artworkUrl100: string;
-  collectionPrice: number;
+  collectionPrice?: number;
   copyright: string;
   releaseDate: string;
   songs: Array<Song>;
@@ -22,7 +22,7 @@ export type Song = {
   collectionId: number;
   trackId: number;
   trackName: string;
-  trackPrice: string;
+  trackPrice?: string;
   trackNumber: number;
   trackTimeMillis: number;
 };
