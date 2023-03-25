@@ -5,5 +5,7 @@ import prefetch from "@astrojs/prefetch";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://shinsina.github.io",
+  base: "/Ausick",
   integrations: [tailwind(), svelte(), prefetch()]
 });
