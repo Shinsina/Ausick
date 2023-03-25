@@ -1,0 +1,22 @@
+---
+import DefaultLayout from "src/layouts/defaultLayout.astro";
+import ArtistInfo from '$lib/components/artistInfo.svelte';
+import AlbumInfoList from "$lib/components/albumInfoList.svelte";
+export function getStaticPaths() {
+  return [
+    { params: { artistId: 425209960 } },
+    { params: { artistId: 390853789 } },
+    { params: { artistId: 421186855 } },
+    { params: { artistId: 449513466 } },
+  ]
+};
+const artistResponse = await fetch(`${Astro.url.href}/artist-data.json`);
+const [artist] = await artistResponse.json();
+---
+
+<DefaultLayout title={`${artist.artistName} | Ausick`}>
+  <div class="w-full flex border-white border-2 border-t-0 pt-5">
+    <ArtistInfo {artist} showBio={true} />
+    <AlbumInfoList {artist} />
+  </div>
+</DefaultLayout>
