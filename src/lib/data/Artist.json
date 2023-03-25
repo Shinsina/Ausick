@@ -6,7 +6,8 @@
     "photo": "https://is3-ssl.mzstatic.com/image/thumb/Features124/v4/4c/86/2c/4c862c48-b5a3-c0b9-28ef-af7d4d52173b/pr_source.png/380x380cc-60.jpg",
     "founded": 2008,
     "hometown": "Canberra, Australia",
-    "members": "Trenton Woodley (Vocals and Keys), Matt Cooper (Lead Guitar), Alex Pearson (Rhythm Guitar and Backing Vocals), Joel Tyrrell (Bass Guitar and Backing Vocals), Matt Parkitny (Drums)"
+    "members": "Trenton Woodley (Vocals and Keys), Matt Cooper (Lead Guitar), Alex Pearson (Rhythm Guitar and Backing Vocals), Joel Tyrrell (Bass Guitar and Backing Vocals), Matt Parkitny (Drums)",
+    "albums": []
   },
   {
     "artistId": 390853789,
@@ -15,7 +16,8 @@
     "photo": "https://i.scdn.co/image/ab6761610000e5eb5c0fc255ee9b8e3ba120bc1a",
     "founded": 2006,
     "hometown": "Byron Bay, Australia",
-    "members": "Jake Taylor (Vocals), Eaven Dall (Lead Guitar and Backing Vocals), Ben Nairne (Rhythm Guitar), Kyle Erich (Bass and Vocals), Conor Ward (Drums)"
+    "members": "Jake Taylor (Vocals), Eaven Dall (Lead Guitar and Backing Vocals), Ben Nairne (Rhythm Guitar), Kyle Erich (Bass and Vocals), Conor Ward (Drums)",
+    "albums": []
   },
   {
     "artistId": 421186855,
@@ -24,7 +26,8 @@
     "photo": "https://is1-ssl.mzstatic.com/image/thumb/Features114/v4/01/19/94/01199420-ed84-69db-37cd-57239f1e3b53/pr_source.png/380x380cc-60.jpg",
     "founded": 2008,
     "hometown": "Perth, Australia",
-    "members": "Sean Harmanis (Vocals), Nick McLernon (Guitar and Backing Vocals), Jordan Mather (Drums), Jaya Jeffery (Bass), Booka Nile (Keys and Vocals)"
+    "members": "Sean Harmanis (Vocals), Nick McLernon (Guitar and Backing Vocals), Jordan Mather (Drums), Jaya Jeffery (Bass), Booka Nile (Keys and Vocals)",
+    "albums": []
   },
   {
     "artistId": 449513466,
@@ -33,6 +36,7 @@
     "photo": "https://is1-ssl.mzstatic.com/image/thumb/Features124/v4/68/3e/97/683e978a-7cd3-4da5-6d12-aacfcf1339bf/pr_source.png/380x380cc-60.jpg",
     "founded": 2002,
     "hometown": "Brisbane, Australia",
-    "members": "Ahren Stringer (Bass and Vocals), Joel Birch (Vocals), Dan Brown (Guitar and Backing Vocals), Joe Longobardi (Drums)"
+    "members": "Ahren Stringer (Bass and Vocals), Joel Birch (Vocals), Dan Brown (Guitar and Backing Vocals), Joe Longobardi (Drums)",
+    "albums": []
   }
 ]
