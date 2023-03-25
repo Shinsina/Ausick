@@ -1,10 +1,10 @@
 ---
 	import DefaultLayout from "src/layouts/defaultLayout.astro";
 	import ArtistInfoList from "$lib/components/artistInfoList.svelte";
-	const response = await fetch(`${Astro.url.origin}/homepage-data.json`);
-	const data = await response.json();
+	import Artists from '$lib/data/Artist.json';
+	const data = Artists;
 ---
 
 <DefaultLayout title="Ausick">
-	<ArtistInfoList {data} />
+	<ArtistInfoList data={data} />
 </DefaultLayout>
