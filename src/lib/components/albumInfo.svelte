@@ -11,7 +11,7 @@
   }
 </script>
 
-<a href={navigateTo(album)}>
+<a href={navigateTo(album)} rel="prefetch">
   <div class="flex justify-center">
     <img src={album.artworkUrl100} alt={album.collectionName} width="100" height="100" />
   </div>
