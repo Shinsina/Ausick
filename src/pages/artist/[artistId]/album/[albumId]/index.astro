@@ -1,6 +1,7 @@
 ---
   import DefaultLayout from 'src/layouts/defaultLayout.astro';
   import AlbumInfo from '$lib/components/albumInfo.svelte';
+  import PurchaseButton from '$lib/components/purchaseButton.svelte';
   import type { Album, Song } from '$lib/typeDefs';
   import { sortSongs } from '$lib/sorts';
 
@@ -85,8 +86,12 @@
   ]);
 ---
 
-<DefaultLayout title="Ausick">
+<DefaultLayout
+  title={`${album.collectionName} | Ausick`}
+  description={`${album.collectionName}'s Album Page on Ausick`}
+>
   <div class="text-center border-white border-2 border-t-0 h-screen pt-5">
-    <AlbumInfo {album} client:visible />
+    <AlbumInfo {album} />
+    <PurchaseButton client:visible />
   </div>
 </DefaultLayout>
