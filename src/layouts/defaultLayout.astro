@@ -1,5 +1,7 @@
 ---
-  const { title } = Astro.props;
+  const { title, description } = Astro.props;
+  const seoTitle = title || "Ausick";
+  const seoDescription = description || "Celebrating the \"sick\" stuff from down under";
 ---
 
 <!DOCTYPE html>
@@ -9,16 +11,17 @@
     <link rel="icon" type="image/svg+xml" href="/Ausick/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <meta name="description" content={seoDescription} />
+    <title>{seoTitle}</title>
   </head>
   <body>
     <div class="bg-gray-900 text-white font-sans">
       <div class="text-center border-white border-2">
         <p class="block lg:text-7xl md:text-4xl sm-text-3xl break-words text-center">Ausick</p>
-        <p class="block lg:text-4xl md:text-xl sm:text-lg break-words text-center">
+        <p class="block lg:text-4xl md:text-xl sm:text-lg break-words text-center pt-2">
           Celebrating the "sick" stuff from down under
         </p>
-        <div class="block lg:text-3xl md:text-lg sm:text-md break-words text-center">
+        <div class="block lg:text-3xl md:text-lg sm:text-md break-words text-center py-2">
           <a href="/Ausick/" rel="prefetch">Home</a>
         </div>
       </div>

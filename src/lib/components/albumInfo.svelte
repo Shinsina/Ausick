@@ -2,7 +2,7 @@
   import type { Album } from '$lib/typeDefs';
 
   export let album: Album,
-    navigateTo: Function = () => '';
+    navigateTo: string = '';
 
   function trackLength(trackLength: number) {
     const minutes = Math.floor(trackLength / 60000);
@@ -11,16 +11,34 @@
   }
 </script>
 
-<a href={navigateTo(album)} rel="prefetch">
+{#if navigateTo}
+  <a href={navigateTo} rel="prefetch">
+    <div class="flex justify-center">
+      <img
+        src={album.artworkUrl100}
+        alt={album.collectionName}
+        width="100"
+        height="100"
+        style="image-rendering: pixelated;"
+      />
+    </div>
+  </a>
+{:else}
   <div class="flex justify-center">
-    <img src={album.artworkUrl100} alt={album.collectionName} width="100" height="100" />
+    <img
+      src={album.artworkUrl100}
+      alt={album.collectionName}
+      width="100"
+      height="100"
+      style="image-rendering: pixelated;"
+    />
   </div>
-</a>
+{/if}
 <p>
   {album.collectionName}
   {#if album.collectionPrice}${album.collectionPrice}{/if}
 </p>
-{#if album.releaseDate && !navigateTo(album)}
+{#if album.releaseDate && !navigateTo}
   <p>{album.releaseDate}</p>
 {/if}
 <p class="pb-5">{album.copyright}</p>
@@ -32,6 +50,3 @@
     {/if}
   </div>
 {/each}
-{#if !navigateTo(album)}
-  <button on:click|preventDefault={() => alert('Thank you for your purchase!')}>Buy</button>
-{/if}
