@@ -5,7 +5,7 @@
   export let data: Array<Artist>;
 </script>
 
-<div class="flex h-screen">
+<div class="md:flex md:h-screen">
   {#each data as artist}
     <ArtistInfo {artist} />
   {/each}
