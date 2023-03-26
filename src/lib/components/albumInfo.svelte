@@ -14,12 +14,24 @@
 {#if navigateTo}
   <a href={navigateTo} rel="prefetch">
     <div class="flex justify-center">
-      <img src={album.artworkUrl100} alt={album.collectionName} width="100" height="100" style="image-rendering: pixelated;" />
+      <img
+        src={album.artworkUrl100}
+        alt={album.collectionName}
+        width="100"
+        height="100"
+        style="image-rendering: pixelated;"
+      />
     </div>
   </a>
 {:else}
   <div class="flex justify-center">
-    <img src={album.artworkUrl100} alt={album.collectionName} width="100" height="100" style="image-rendering: pixelated;" />
+    <img
+      src={album.artworkUrl100}
+      alt={album.collectionName}
+      width="100"
+      height="100"
+      style="image-rendering: pixelated;"
+    />
   </div>
 {/if}
 <p>
