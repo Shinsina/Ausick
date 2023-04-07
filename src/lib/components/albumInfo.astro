@@ -45,6 +45,6 @@ function trackLength(trackLength: number) {
 {album.songs.map((song => (
   <div class="flex justify-center">
     {song.trackNumber}. {song.trackName}
-    {song.trackTimeMillis && song.trackPrice ? `${trackLength(song.trackTimeMillis)} ${song.trackPrice}` : '' }
+    {song.trackTimeMillis && song.trackPrice ? `${trackLength(song.trackTimeMillis)} $${song.trackPrice}` : '' }
   </div>
 )))}
