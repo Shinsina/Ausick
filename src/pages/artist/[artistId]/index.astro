@@ -1,7 +1,7 @@
 ---
 import DefaultLayout from "src/layouts/defaultLayout.astro";
-import ArtistInfo from '$lib/components/artistInfo.svelte';
-import AlbumInfoList from "$lib/components/albumInfoList.svelte";
+import ArtistInfo from '$lib/components/artistInfo.astro';
+import AlbumInfoList from "$lib/components/albumInfoList.astro";
 import Artists from '$lib/data/Artist.json';
 import { sortAlbums, sortSongs } from '$lib/sorts';
 import type { Artist, Album, Song } from "$lib/typeDefs";

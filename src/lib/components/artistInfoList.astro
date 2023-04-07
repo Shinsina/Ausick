@@ -1,0 +1,10 @@
+---
+import type { Artist } from '$lib/typeDefs';
+import ArtistInfo from '$lib/components/artistInfo.astro';
+
+const { data } = Astro.props as { data: Array<Artist> };
+---
+
+<div class="md:flex md:h-screen">
+  {data.map((artist) => (<ArtistInfo {artist} />))}
+</div>
