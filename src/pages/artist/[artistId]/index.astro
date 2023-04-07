@@ -13,44 +13,44 @@ export function getStaticPaths() {
     { params: { artistId: 449513466 } },
   ]
 };
-  const { artistId } = Astro.params;
-  const incompleteArtist = Artists.find((artist) => artist.artistId === Number(artistId));
-  const albumResponse = await fetch(`https://itunes.apple.com/lookup?id=${artistId}&entity=album`);
-  const albumData = await albumResponse.json();
-  const songResponse = await fetch(`https://itunes.apple.com/lookup?id=${artistId}&entity=song&limit=500`);
-  const songData = await songResponse.json();
-  const artist: Artist = {
-    artistId: 0,
-    artistName: "",
-    bio: "",
-    photo: "",
-    founded: 0,
-    hometown: "",
-    members: "",
-    albums: [],
-    ...incompleteArtist,
-  }
-  artist.albums = sortAlbums(albumData.results.filter((album: Album) => album.collectionId));
-  songData.results
-    .filter((result: Song) => result.collectionId)
-    .forEach((song: Song) => {
-      delete song.trackPrice;
-      const albumForSongIndex = Array.from(
-      artist.albums.map((album: Album) => album.collectionId)
-      ).indexOf(song.collectionId);
-      if (albumForSongIndex >= 0) {
-        if (artist.albums[albumForSongIndex].songs)
-        artist.albums[albumForSongIndex].songs.push(song);
-        else artist.albums[albumForSongIndex].songs = [song];
-      }
-    });
-    artist.albums.forEach((album: Album, index: number) => {
-    // Use this to obtain the values for the album getStaticPaths() function
-    // console.log({ params: { artistId: artist.artistId, albumId: album.collectionId } })
-    const { songs } = album;
-    delete album.collectionPrice;
-    artist.albums[index].songs = sortSongs(songs);
+const { artistId } = Astro.params;
+const incompleteArtist = Artists.find((artist) => artist.artistId === Number(artistId));
+const albumResponse = await fetch(`https://itunes.apple.com/lookup?id=${artistId}&entity=album`);
+const albumData = await albumResponse.json();
+const songResponse = await fetch(`https://itunes.apple.com/lookup?id=${artistId}&entity=song&limit=500`);
+const songData = await songResponse.json();
+const artist: Artist = {
+  artistId: 0,
+  artistName: "",
+  bio: "",
+  photo: "",
+  founded: 0,
+  hometown: "",
+  members: "",
+  albums: [],
+  ...incompleteArtist,
+}
+artist.albums = sortAlbums(albumData.results.filter((album: Album) => album.collectionId));
+songData.results
+  .filter((result: Song) => result.collectionId)
+  .forEach((song: Song) => {
+    delete song.trackPrice;
+    const albumForSongIndex = Array.from(
+    artist.albums.map((album: Album) => album.collectionId)
+    ).indexOf(song.collectionId);
+    if (albumForSongIndex >= 0) {
+      if (artist.albums[albumForSongIndex].songs)
+      artist.albums[albumForSongIndex].songs.push(song);
+      else artist.albums[albumForSongIndex].songs = [song];
+    }
   });
+artist.albums.forEach((album: Album, index: number) => {
+  // Use this to obtain the values for the album getStaticPaths() function
+  // console.log({ params: { artistId: artist.artistId, albumId: album.collectionId } })
+  const { songs } = album;
+  delete album.collectionPrice;
+  artist.albums[index].songs = sortSongs(songs);
+});
 ---
 
 <DefaultLayout
