@@ -1,5 +1,6 @@
 ---
 import type { Artist } from '$lib/typeDefs';
+import { Image } from '@astrojs/image/components';
 
 const { artist, showBio } = Astro.props as { artist: Artist, showBio: Boolean };
 
@@ -12,12 +13,12 @@ const border = showBio ? '' : 'border-white border-2 border-t-0';
     <div class={border}>
       <p>{artist.artistName}</p>
       <div class="flex justify-center">
-        <img
+        <Image
           src={artist.photo}
           alt={artist.artistName}
-          width="380"
-          height="380"
-          style="image-rendering: pixelated;"
+          width={380}
+          height={380}
+          format="avif"
         />
       </div>
       <p>Founded {artist.founded} in {artist.hometown}</p>
