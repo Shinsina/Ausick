@@ -1,12 +1,11 @@
-<script lang="ts">
-  import type { Artist } from '$lib/typeDefs';
+---
+import type { Artist } from '$lib/typeDefs';
 
-  export let artist: Artist,
-    showBio: Boolean = false;
+const { artist, showBio } = Astro.props as { artist: Artist, showBio: Boolean };
 
-  const goTo = `/Ausick/artist/${artist.artistId}`
-  const border = showBio ? '' : 'border-white border-2 border-t-0';
-</script>
+const goTo = `/Ausick/artist/${artist.artistId}`
+const border = showBio ? '' : 'border-white border-2 border-t-0';
+---
 
 <div class="w-full md:w-1/4 text-center lg:text-xl sm:text-xs">
   <a href={goTo} rel="prefetch">
@@ -22,7 +21,7 @@
         />
       </div>
       <p>Founded {artist.founded} in {artist.hometown}</p>
-      {#if showBio}<p class="text-base pt-5">{artist.bio}</p>{/if}
+      {showBio ? <p class="text-base pt-5">{artist.bio}</p>: ''}
     </div>
   </a>
 </div>

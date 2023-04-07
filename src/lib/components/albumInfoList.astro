@@ -1,18 +1,17 @@
-<script lang="ts">
-  import type { Artist } from '$lib/typeDefs';
-  import AlbumInfo from '$lib/components/albumInfo.svelte';
+---
+import type { Artist } from '$lib/typeDefs';
+import AlbumInfo from '$lib/components/albumInfo.astro';
 
-  export let artist: Artist;
-</script>
-
+const { artist } = Astro.props as { artist: Artist };
+---
 
 <div class="flex flex-wrap w-full">
-  {#each artist.albums as album}
+  {artist.albums.map((album) => (
     <div class="w-full md:w-1/4 text-center">
       <AlbumInfo
         {album}
         navigateTo={`/Ausick/artist/${artist.artistId}/album/${album.collectionId}`}
       />
     </div>
-  {/each}
+  ))}
 </div>
