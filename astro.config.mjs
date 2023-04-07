@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import image from "@astrojs/image";
 import tailwind from "@astrojs/tailwind";
 import prefetch from "@astrojs/prefetch";
 
@@ -6,5 +7,5 @@ import prefetch from "@astrojs/prefetch";
 export default defineConfig({
   site: "https://shinsina.github.io",
   base: "/Ausick",
-  integrations: [tailwind(), prefetch()]
+  integrations: [image(), tailwind(), prefetch()]
 });
