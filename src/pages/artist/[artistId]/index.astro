@@ -6,12 +6,7 @@ import Artists from '$lib/data/Artist.json';
 import { sortAlbums, sortSongs } from '$lib/sorts';
 import type { Artist, Album, Song } from "$lib/typeDefs";
 export function getStaticPaths() {
-  return [
-    { params: { artistId: 425209960 } },
-    { params: { artistId: 390853789 } },
-    { params: { artistId: 421186855 } },
-    { params: { artistId: 449513466 } },
-  ]
+  return Artists.map((artist) => ({ params: { artistId: artist.artistId }}));
 };
 const { artistId } = Astro.params;
 const incompleteArtist = Artists.find((artist) => artist.artistId === Number(artistId));
@@ -45,8 +40,6 @@ songData.results
     }
   });
 artist.albums.forEach((album: Album, index: number) => {
-  // Use this to obtain the values for the album getStaticPaths() function
-  // console.log({ params: { artistId: artist.artistId, albumId: album.collectionId } })
   const { songs } = album;
   delete album.collectionPrice;
   artist.albums[index].songs = sortSongs(songs);
