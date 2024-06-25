@@ -1,6 +1,6 @@
 ---
 import type { Album } from '$lib/typeDefs';
-import { Image } from '@astrojs/image/components';
+import { Image } from 'astro:assets';
 
 const { album, navigateTo } = Astro.props as { album: Album, navigateTo: string };
 

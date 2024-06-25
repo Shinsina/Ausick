@@ -1,6 +1,6 @@
 ---
 import type { Artist } from '$lib/typeDefs';
-import { Image } from '@astrojs/image/components';
+import { Image } from 'astro:assets';
 
 const { artist, showBio } = Astro.props as { artist: Artist, showBio: Boolean };
 
