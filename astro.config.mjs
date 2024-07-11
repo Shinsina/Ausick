@@ -6,5 +6,8 @@ export default defineConfig({
   site: "https://shinsina.github.io",
   base: "/Ausick",
   integrations: [tailwind()],
-  prefetch: { defaultStrategy: 'viewport', prefetchAll: true }
+  prefetch: { defaultStrategy: 'viewport', prefetchAll: true },
+  image: {
+    remotePatterns: [{ protocol: "https" }],
+  }
 });
